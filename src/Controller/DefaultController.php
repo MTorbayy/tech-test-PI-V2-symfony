@@ -25,8 +25,8 @@ class DefaultController extends AbstractController
 
         foreach($roomsByMonth as $room) {
             $roomPrepare = ['stay_date' => $room->getStayDate()->format('Y-m-d'), 
-                            'room_nights' => (string) $room->getRoomNights(), 
-                            'room_revenues' => (string) $room->getRoomRevenues()];
+                            'room_nights' => $room->getRoomNights(), 
+                            'room_revenues' => $room->getRoomRevenues()];
 
             
             array_push($jsonPrepare, (object) $roomPrepare);
