@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Entity\Rooms;
+use App\Repository\RoomsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -9,15 +11,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/rooms/{id}", name="roomsPerMonth", requirements={"id"="\d+"}, methods={'GET'})
+     * @Route("/rooms", name="roomsPerMonth")
      */
-    public function roomsPerMonth($id): Response
+
+    public function roomsPerMonth(RoomsRepository $roomsRepository): Response
     {
-        // $room = $articleRepository->find($id)
+        $rooms = $roomsRepository->findAll();
 
-        $response = new Response("Rooms info : month ".$id);    
+        dump($rooms);die;
 
-        return $response;
+        // $response = new Response("Rooms info : month ".$rooms);    
+
+        // return $response;
     }
 }
 
