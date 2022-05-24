@@ -39,6 +39,29 @@ class RoomsRepository extends ServiceEntityRepository
         }
     }
 
+    // public function findByMonth(\DateTime $date) {
+    //     $queryBuilder = $this->createQueryBuilder('a');
+    //         $queryBuilder->select('a');
+    //         $queryBuilder->where('a.stayDate = :date');
+    //         $queryBuilder->setParameter('date', $date->format('Y-m-d'));
+
+    //     return $queryBuilder->getQuery()->getResult();
+    // }
+
+    public function findByMonth($month) {
+
+        $startDate = new \DateTimeImmutable("2022-$month-01T00:00:00");
+        $endDate = $startDate->modify('last day of this month');
+
+        $queryBuilder = $this->createQueryBuilder('object');
+            $queryBuilder->select('object');
+            $queryBuilder->where('object.stayDate BETWEEN :start AND :end');
+            $queryBuilder->setParameter('start', $startDate->format('Y-m-d H:i:s'));
+            $queryBuilder->setParameter('end', $endDate->format('Y-m-d H:i:s'));
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
 //    /**
 //     * @return Rooms[] Returns an array of Rooms objects
 //     */

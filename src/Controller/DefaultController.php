@@ -11,20 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class DefaultController extends AbstractController
 {
     /**
-     * @Route("/rooms", name="roomsPerMonth")
+     * @Route("/rooms/{id}", name="roomsPerMonth", requirements={"id"="^([1-9]|1[012])$"}, methods={"GET"})
      */
 
-    public function roomsPerMonth(RoomsRepository $roomsRepository): Response
+    public function roomsPerMonth(RoomsRepository $roomsRepository, $id): Response
     {
-        $rooms = $roomsRepository->findAll();
+        $roomsByMonth = $roomsRepository->findByMonth($id);
 
-        dump($rooms);die;
-
-        // $response = new Response("Rooms info : month ".$rooms);    
-
-        // return $response;
+        dump($roomsByMonth);die;
     }
 }
-
-
-// ^([1-9]|1[012])$
